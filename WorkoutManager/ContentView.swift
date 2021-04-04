@@ -28,6 +28,9 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
                 ToolbarItem(placement: .bottomBar){
                     Button(action: addItem) {
                         Label("Add Item", systemImage: "plus")
