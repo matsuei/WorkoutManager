@@ -20,7 +20,13 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(items) { item in
-                    Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                    HStack {
+                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        Text(item.title!)
+                        NavigationLink(destination: SubContentView()) {
+                                        Text("Show Next")
+                                    }
+                    }
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -44,6 +50,7 @@ struct ContentView: View {
         withAnimation {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
+            newItem.title = "test"
 
             do {
                 try viewContext.save()
