@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct SubContentView: View {
+    let part: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(part)
     }
 }
 
 struct SubContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SubContentView()
+        SubContentView(part: "chest")
     }
 }

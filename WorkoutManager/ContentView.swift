@@ -23,7 +23,7 @@ struct ContentView: View {
                     HStack {
                         Text("Item at \(item.timestamp!, formatter: itemFormatter)")
                         Text(item.title!)
-                        NavigationLink(destination: SubContentView()) {
+                        NavigationLink(destination: SubContentView(part: item.part!)) {
                                         Text("Show Next")
                                     }
                     }
@@ -51,6 +51,7 @@ struct ContentView: View {
             let newItem = Menu(context: viewContext)
             newItem.timestamp = Date()
             newItem.title = "test"
+            newItem.part = "chest"
 
             do {
                 try viewContext.save()
