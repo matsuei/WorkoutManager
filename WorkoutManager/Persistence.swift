@@ -17,6 +17,7 @@ struct PersistenceController {
             let newItem = Menu(context: viewContext)
             newItem.timestamp = Date()
             newItem.title = "test"
+            newItem.part = "chest"
         }
         do {
             try viewContext.save()

@@ -10,6 +10,7 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @State private var showingModal = false
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Menu.timestamp, ascending: true)],
@@ -24,8 +25,8 @@ struct ContentView: View {
                         Text("Item at \(item.timestamp!, formatter: itemFormatter)")
                         Text(item.title!)
                         NavigationLink(destination: SubContentView(part: item.part!)) {
-                                        Text("Show Next")
-                                    }
+                            Text("Show Next")
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -37,9 +38,13 @@ struct ContentView: View {
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
-                ToolbarItem(placement: .bottomBar){
-                    Button(action: addItem) {
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        self.showingModal.toggle()
+                    }) {
                         Label("Add Item", systemImage: "plus")
+                    }.sheet(isPresented: $showingModal) {
+                        AddMenuView()
                     }
                 }
             }
@@ -56,8 +61,6 @@ struct ContentView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -71,8 +74,6 @@ struct ContentView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
