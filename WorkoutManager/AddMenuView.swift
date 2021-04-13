@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct AddMenuView: View {
+    @State private var title: String = ""
+    @State private var part: String = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            TextField(
+                "Title",
+                text: $title)
+                .disableAutocorrection(true)
+            TextField(
+                "Part",
+                text: $part)
+                .disableAutocorrection(true)
+            }
+        .textFieldStyle(RoundedBorderTextFieldStyle())
+        .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
     }
 }
 
