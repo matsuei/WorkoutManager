@@ -12,18 +12,27 @@ struct AddMenuView: View {
     @State private var part: String = ""
     
     var body: some View {
-        VStack {
-            TextField(
-                "Title",
-                text: $title)
-                .disableAutocorrection(true)
-            TextField(
-                "Part",
-                text: $part)
-                .disableAutocorrection(true)
-            }
-        .textFieldStyle(RoundedBorderTextFieldStyle())
-        .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+        NavigationView {
+            List {
+                Section {
+                    TextField(
+                        "Title",
+                        text: $title)
+                        .disableAutocorrection(true)
+                    TextField(
+                        "Part",
+                        text: $part)
+                        .disableAutocorrection(true)
+                }
+                Section {
+                    NavigationLink(
+                        destination: PartSelectView(),
+                        label: {
+                            Text("Select Part")
+                        })
+                }
+            }.listStyle(InsetGroupedListStyle())
+        }
     }
 }
 

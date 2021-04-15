@@ -17,6 +17,7 @@
 		CD3FAB43261955EB00FB3E45 /* WorkoutManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB42261955EB00FB3E45 /* WorkoutManagerUITests.swift */; };
 		CD3FAB54261C8C6800FB3E45 /* SubContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB53261C8C6800FB3E45 /* SubContentView.swift */; };
 		CD3FAB5F262323EC00FB3E45 /* AddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */; };
+		CD3FAB6A2628653600FB3E45 /* PartSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB692628653600FB3E45 /* PartSelectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		CD3FAB44261955EB00FB3E45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD3FAB53261C8C6800FB3E45 /* SubContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubContentView.swift; sourceTree = "<group>"; };
 		CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMenuView.swift; sourceTree = "<group>"; };
+		CD3FAB692628653600FB3E45 /* PartSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartSelectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				CD3FAB22261955E800FB3E45 /* ContentView.swift */,
 				CD3FAB53261C8C6800FB3E45 /* SubContentView.swift */,
 				CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */,
+				CD3FAB692628653600FB3E45 /* PartSelectView.swift */,
 				CD3FAB24261955EB00FB3E45 /* Assets.xcassets */,
 				CD3FAB29261955EB00FB3E45 /* Persistence.swift */,
 				CD3FAB2E261955EB00FB3E45 /* Info.plist */,
@@ -276,6 +279,7 @@
 				CD3FAB2D261955EB00FB3E45 /* WorkoutManager.xcdatamodeld in Sources */,
 				CD3FAB23261955E800FB3E45 /* ContentView.swift in Sources */,
 				CD3FAB54261C8C6800FB3E45 /* SubContentView.swift in Sources */,
+				CD3FAB6A2628653600FB3E45 /* PartSelectView.swift in Sources */,
 				CD3FAB21261955E800FB3E45 /* WorkoutManagerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

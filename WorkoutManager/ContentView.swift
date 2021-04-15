@@ -25,7 +25,6 @@ struct ContentView: View {
                         Text("Item at \(item.timestamp!, formatter: itemFormatter)")
                         Text(item.title!)
                         NavigationLink(destination: SubContentView(part: item.part!)) {
-                            Text("Show Next")
                         }
                     }
                 }
