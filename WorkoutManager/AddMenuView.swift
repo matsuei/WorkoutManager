@@ -10,6 +10,7 @@ import SwiftUI
 struct AddMenuView: View {
     @State private var title: String = ""
     @State private var part: String = ""
+    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
         NavigationView {
@@ -31,7 +32,15 @@ struct AddMenuView: View {
                             Text("Select Part")
                         })
                 }
-            }.listStyle(InsetGroupedListStyle())
+            }
+            .listStyle(InsetGroupedListStyle())
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("cancel") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
         }
     }
 }
