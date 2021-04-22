@@ -7,9 +7,24 @@
 
 import SwiftUI
 
+enum Part: String, CaseIterable {
+    case chest
+    case back
+    case arm
+    case leg
+}
+
 struct PartSelectView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(Part.allCases, id: \.self) { part in
+            HStack {
+                Text(part.rawValue)
+                Spacer()
+                if part == .chest {
+                    Image(systemName: "checkmark")
+                }
+              }
+        }
     }
 }
 
