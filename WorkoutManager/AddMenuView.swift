@@ -7,9 +7,17 @@
 
 import SwiftUI
 
+enum Part: String, CaseIterable {
+    case chest
+    case back
+    case arm
+    case leg
+}
+
 struct AddMenuView: View {
     @State private var title: String = ""
     @State private var part: String = ""
+    @State private var selection: Part = .chest
     @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
@@ -26,11 +34,11 @@ struct AddMenuView: View {
                         .disableAutocorrection(true)
                 }
                 Section {
-                    NavigationLink(
-                        destination: PartSelectView(),
-                        label: {
-                            Text("Select Part")
-                        })
+                    Picker(selection: $selection, label: Text("Chose Part")) {
+                        ForEach(Part.allCases, id: \.self) { (part) in
+                            Text(part.rawValue)
+                        }
+                    }
                 }
             }
             .listStyle(InsetGroupedListStyle())
