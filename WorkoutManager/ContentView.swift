@@ -22,14 +22,15 @@ struct ContentView: View {
             List {
                 ForEach(items) { item in
                     HStack {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
                         Text(item.title!)
+                        Text(item.part!)
                         NavigationLink(destination: SubContentView(part: item.part!)) {
                         }
                     }
                 }
                 .onDelete(perform: deleteItems)
             }
+            .listStyle(InsetGroupedListStyle())
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
@@ -42,10 +43,12 @@ struct ContentView: View {
                         self.showingModal.toggle()
                     }) {
                         Label("Add Item", systemImage: "plus")
-                    }.sheet(isPresented: $showingModal) {
-                        AddMenuView()
                     }
                 }
+            }
+            .sheet(isPresented: $showingModal) {
+                AddMenuView()
+                    .environment(\.managedObjectContext, viewContext)
             }
         }
     }
