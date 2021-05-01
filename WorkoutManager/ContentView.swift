@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var showingModal = false
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Menu.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Menu.part, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Menu>
 
@@ -56,7 +56,6 @@ struct ContentView: View {
     private func addItem() {
         withAnimation {
             let newItem = Menu(context: viewContext)
-            newItem.timestamp = Date()
             newItem.title = "test"
             newItem.part = "chest"
 

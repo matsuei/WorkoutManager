@@ -53,7 +53,6 @@ struct AddMenuView: View {
     
     private func addItem() {
         let newItem = Menu(context: viewContext)
-        newItem.timestamp = Date()
         newItem.title = title
         newItem.part = part.rawValue
 
