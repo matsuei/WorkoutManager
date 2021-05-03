@@ -24,7 +24,7 @@ struct ContentView: View {
                     HStack {
                         Text(item.title!)
                         Text(item.part!)
-                        NavigationLink(destination: SubContentView(part: item.part!)) {
+                        NavigationLink(destination: SubContentView(fetchRequest: FetchRequest<Record>(entity: Record.entity(), sortDescriptors: [], predicate: NSPredicate(format: "menuID == %@", item.id!))).environment(\.managedObjectContext, viewContext)) {
                         }
                     }
                 }
@@ -49,21 +49,6 @@ struct ContentView: View {
             .sheet(isPresented: $showingModal) {
                 AddMenuView()
                     .environment(\.managedObjectContext, viewContext)
-            }
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Menu(context: viewContext)
-            newItem.title = "test"
-            newItem.part = "chest"
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }

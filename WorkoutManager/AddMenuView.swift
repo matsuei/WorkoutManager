@@ -53,6 +53,7 @@ struct AddMenuView: View {
     
     private func addItem() {
         let newItem = Menu(context: viewContext)
+        newItem.id = UUID().uuidString
         newItem.title = title
         newItem.part = part.rawValue
 
