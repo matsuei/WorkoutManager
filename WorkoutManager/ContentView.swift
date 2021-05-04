@@ -16,19 +16,63 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Menu.part, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Menu>
+    private var chestMenus: [Menu] {
+        items.filter({$0.part! == Part.chest.rawValue})
+    }
+    private var backMenus: [Menu] {
+        items.filter({$0.part! == Part.back.rawValue})
+    }
+    private var armMenus: [Menu] {
+        items.filter({$0.part! == Part.arm.rawValue})
+    }
+    private var legMenus: [Menu] {
+        items.filter({$0.part! == Part.leg.rawValue})
+    }
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
-                    HStack {
-                        Text(item.title!)
-                        Text(item.part!)
-                        NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                Section(header: Text("Chest")) {
+                    ForEach(chestMenus) { item in
+                        HStack {
+                            Text(item.title!)
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            }
                         }
                     }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
+                Section(header: Text("Back")) {
+                    ForEach(backMenus) { item in
+                        HStack {
+                            Text(item.title!)
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            }
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
+                }
+                Section(header: Text("Arm")) {
+                    ForEach(armMenus) { item in
+                        HStack {
+                            Text(item.title!)
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            }
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
+                }
+                
+                Section(header: Text("Leg")) {
+                    ForEach(legMenus) { item in
+                        HStack {
+                            Text(item.title!)
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            }
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
+                }
             }
             .listStyle(InsetGroupedListStyle())
             .toolbar {
