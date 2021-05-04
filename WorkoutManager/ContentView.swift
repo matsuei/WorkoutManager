@@ -24,7 +24,7 @@ struct ContentView: View {
                     HStack {
                         Text(item.title!)
                         Text(item.part!)
-                        NavigationLink(destination: SubContentView(fetchRequest: FetchRequest<Record>(entity: Record.entity(), sortDescriptors: [], predicate: NSPredicate(format: "menuID == %@", item.id!))).environment(\.managedObjectContext, viewContext)) {
+                        NavigationLink(destination: SubContentView(menuID: item.id!)) {
                         }
                     }
                 }

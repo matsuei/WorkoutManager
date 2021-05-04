@@ -9,17 +9,48 @@ import SwiftUI
 
 struct SubContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    var fetchRequest: FetchRequest<Record>
-    private var items: FetchedResults<Record> { fetchRequest.wrappedValue }
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Record.timestamp, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<Record>
+    private var filteredItems: [Record] {
+        items.filter({$0.menuID == menuID})
+    }
+    @State private var showingModal = false
+    let menuID: String
     
     var body: some View {
-        List {
-            ForEach(items) { item in
-                HStack {
-                    Text(String(item.weight))
-                    Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+        NavigationView {
+            List {
+                ForEach(filteredItems) { item in
+                    HStack {
+                        Text(String(item.weight))
+                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                    }
                 }
             }
+            .listStyle(InsetGroupedListStyle())
+        }
+        .navigationBarTitle("record",
+                            displayMode: .inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: {
+                    self.showingModal.toggle()
+                }) {
+                    Label("Add Item", systemImage: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showingModal) {
+            AddRecordView(menuID: menuID)
+                .environment(\.managedObjectContext, viewContext)
         }
     }
 }
@@ -33,6 +64,6 @@ private let itemFormatter: DateFormatter = {
 
 struct SubContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SubContentView(fetchRequest: FetchRequest<Record>(entity: Record.entity(), sortDescriptors: [], predicate: NSPredicate(format: "menuID == %@", ""))).environment(\.managedObjectContext, PersistenceController.addMenuPreview.container.viewContext)
+        SubContentView(menuID: "").environment(\.managedObjectContext, PersistenceController.addMenuPreview.container.viewContext)
     }
 }
