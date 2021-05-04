@@ -36,6 +36,7 @@ struct PersistenceController {
             let record = Record(context: viewContext)
             record.weight = 30
             record.timestamp = Date()
+            record.reps = 10
             record.menuID = ""
         }
         do {

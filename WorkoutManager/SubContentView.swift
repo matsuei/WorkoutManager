@@ -20,37 +20,49 @@ struct SubContentView: View {
     let menuID: String
     
     var body: some View {
-        NavigationView {
-            List {
+        List {
+            Section {
                 ForEach(filteredItems) { item in
                     HStack {
-                        Text(String(item.weight))
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        Text("At: \(item.timestamp!, formatter: itemFormatter)")
+                        Text("Weight: \(String(item.weight))")
+                        Text("Reps: \(String(item.reps))")
                     }
                 }
+                .onDelete(perform: deleteItems)
             }
-            .listStyle(InsetGroupedListStyle())
-        }
-        .navigationBarTitle("record",
-                            displayMode: .inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
+            Section {
                 Button(action: {
-                    self.showingModal.toggle()
+                    showingModal.toggle()
                 }) {
                     Label("Add Item", systemImage: "plus")
                 }
             }
         }
+        .listStyle(InsetGroupedListStyle())
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
+        }
+        .navigationBarTitle("record",
+                            displayMode: .inline)
         .sheet(isPresented: $showingModal) {
             AddRecordView(menuID: menuID)
                 .environment(\.managedObjectContext, viewContext)
+        }
+    }
+    
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { filteredItems[$0] }.forEach(viewContext.delete)
+
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 }
@@ -58,7 +70,7 @@ struct SubContentView: View {
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
-    formatter.timeStyle = .medium
+    formatter.timeStyle = .none
     return formatter
 }()
 

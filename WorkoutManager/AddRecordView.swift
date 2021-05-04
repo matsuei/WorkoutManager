@@ -10,16 +10,19 @@ import SwiftUI
 struct AddRecordView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var weight: String = ""
+    @State private var reps: String = ""
     @Environment(\.presentationMode) private var presentationMode
     let menuID: String
     
     var body: some View {
         NavigationView {
             List {
-                Section {
-                    TextField("Weight", text: $weight)
-                        .disableAutocorrection(true)
-                }
+                TextField("Weight", text: $weight)
+                    .disableAutocorrection(true)
+                    .keyboardType(.numberPad)
+                TextField("Reps", text: $reps)
+                    .disableAutocorrection(true)
+                    .keyboardType(.numberPad)
             }
             .listStyle(InsetGroupedListStyle())
             .toolbar {
@@ -38,10 +41,14 @@ struct AddRecordView: View {
     }
     
     private func addItem() {
+        guard let weight = Float(weight), let reps = Int64(reps) else {
+            return
+        }
         let newItem = Record(context: viewContext)
         newItem.menuID = menuID
-        newItem.weight = 40
+        newItem.weight = weight
         newItem.timestamp = Date()
+        newItem.reps = Int64(reps)
 
         do {
             try viewContext.save()

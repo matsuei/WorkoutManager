@@ -7,11 +7,12 @@
     </entity>
     <entity name="Record" representedClassName="Record" syncable="YES" codeGenerationType="class">
         <attribute name="menuID" attributeType="String" defaultValueString=""/>
+        <attribute name="reps" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weight" attributeType="Float" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
         <element name="Menu" positionX="-63" positionY="-18" width="128" height="74"/>
-        <element name="Record" positionX="-54" positionY="18" width="128" height="74"/>
+        <element name="Record" positionX="-54" positionY="18" width="128" height="89"/>
     </elements>
 </model>
