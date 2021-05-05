@@ -14,7 +14,7 @@ struct SubContentView: View {
         animation: .default)
     private var items: FetchedResults<Record>
     private var filteredItems: [Record] {
-        items.filter({$0.menuID == menuID})
+        items.filter({$0.menuID == menuID}).sorted(by: { $0.timestamp!.compare($1.timestamp!) == .orderedDescending})
     }
     @State private var showingModal = false
     let menuID: String
