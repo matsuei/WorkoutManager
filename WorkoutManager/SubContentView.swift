@@ -16,20 +16,48 @@ struct SubContentView: View {
     private var filteredItems: [Record] {
         items.filter({$0.menuID == menuID}).sorted(by: { $0.timestamp!.compare($1.timestamp!) == .orderedDescending})
     }
+    private struct ListItem: Identifiable {
+        var id = UUID()
+        var dateString: String
+        var records: [Record]
+    }
+    private var listItems: [ListItem] {
+        var items = [ListItem]()
+        guard let date = filteredItems.first?.timestamp else {
+            return items
+        }
+        var dateString = itemFormatter.string(from: date)
+        var records: [Record] = []
+        filteredItems.forEach { record in
+            if dateString == itemFormatter.string(from: record.timestamp!) {
+                records.append(record)
+            } else {
+                items.append(ListItem(dateString: dateString, records: records))
+                dateString = itemFormatter.string(from: record.timestamp!)
+                records = [record]
+            }
+        }
+        if items.isEmpty {
+            items.append(ListItem(dateString: dateString, records: records))
+        }
+        return items
+    }
     @State private var showingModal = false
     let menuID: String
     
     var body: some View {
         List {
-            Section {
-                ForEach(filteredItems) { item in
-                    HStack {
-                        Text("At: \(item.timestamp!, formatter: itemFormatter)")
-                        Text("Weight: \(String(item.weight))")
-                        Text("Reps: \(String(item.reps))")
+            ForEach(listItems) { item in
+                Section(header: Text(item.dateString)) {
+                    ForEach(item.records) { record in
+                        HStack {
+                            Text("At: \(record.timestamp!, formatter: itemFormatter)")
+                            Text("Weight: \(String(record.weight))")
+                            Text("Reps: \(String(record.reps))")
+                        }
                     }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
             }
             Section {
                 Button(action: {
