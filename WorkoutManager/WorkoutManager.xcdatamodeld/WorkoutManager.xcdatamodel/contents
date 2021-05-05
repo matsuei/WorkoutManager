@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Menu" representedClassName="Menu" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String" defaultValueString=""/>
+        <attribute name="memo" attributeType="String" defaultValueString=""/>
         <attribute name="part" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
@@ -12,7 +13,7 @@
         <attribute name="weight" attributeType="Float" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Menu" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="Menu" positionX="-63" positionY="-18" width="128" height="89"/>
         <element name="Record" positionX="-54" positionY="18" width="128" height="89"/>
     </elements>
 </model>

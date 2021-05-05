@@ -13,10 +13,18 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
+        for i in 0..<10 {
             let newItem = Menu(context: viewContext)
             newItem.title = "test"
-            newItem.part = "chest"
+            if i < 3 {
+                newItem.part = Part.chest.rawValue
+            } else if i < 5 {
+                newItem.part = Part.shoulder.rawValue
+            } else if i < 7 {
+                newItem.part = Part.biceps.rawValue
+            } else {
+                newItem.part = Part.leg.rawValue
+            }
         }
         do {
             try viewContext.save()
@@ -32,7 +40,7 @@ struct PersistenceController {
     static var addMenuPreview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
+        for _ in 0..<5 {
             let record = Record(context: viewContext)
             record.weight = 30
             record.timestamp = Date(timeIntervalSinceNow: TimeInterval(-60 * 60 * 24 * Int.random(in: 0..<365)))

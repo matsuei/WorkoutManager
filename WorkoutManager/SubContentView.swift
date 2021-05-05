@@ -14,7 +14,7 @@ struct SubContentView: View {
         animation: .default)
     private var items: FetchedResults<Record>
     private var filteredItems: [Record] {
-        items.filter({$0.menuID == menuID}).sorted(by: { $0.timestamp!.compare($1.timestamp!) == .orderedDescending})
+        items.filter({$0.menuID == menu.id!}).sorted(by: { $0.timestamp!.compare($1.timestamp!) == .orderedDescending})
     }
     private struct ListItem: Identifiable {
         var id = UUID()
@@ -43,10 +43,15 @@ struct SubContentView: View {
         return items
     }
     @State private var showingModal = false
-    let menuID: String
+    @State private var memo: String = ""
+    let menu: Menu
     
     var body: some View {
         List {
+            Section(header: Text("Memo")) {
+                TextField("Memo", text: $memo)
+                    .disableAutocorrection(true)
+            }
             ForEach(listItems) { item in
                 Section(header: Text(item.dateString)) {
                     ForEach(item.records) { record in
@@ -76,7 +81,7 @@ struct SubContentView: View {
         .navigationBarTitle("record",
                             displayMode: .inline)
         .sheet(isPresented: $showingModal) {
-            AddRecordView(menuID: menuID)
+            AddRecordView(menuID: menu.id!)
                 .environment(\.managedObjectContext, viewContext)
         }
     }
@@ -104,6 +109,6 @@ private let itemFormatter: DateFormatter = {
 
 struct SubContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SubContentView(menuID: "").environment(\.managedObjectContext, PersistenceController.addMenuPreview.container.viewContext)
+        SubContentView(menu: Menu()).environment(\.managedObjectContext, PersistenceController.addMenuPreview.container.viewContext)
     }
 }

@@ -10,7 +10,9 @@ import SwiftUI
 enum Part: String, CaseIterable {
     case chest
     case back
-    case arm
+    case shoulder
+    case biceps
+    case triceps
     case leg
 }
 

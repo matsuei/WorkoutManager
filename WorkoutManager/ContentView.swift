@@ -22,8 +22,14 @@ struct ContentView: View {
     private var backMenus: [Menu] {
         items.filter({$0.part! == Part.back.rawValue})
     }
-    private var armMenus: [Menu] {
-        items.filter({$0.part! == Part.arm.rawValue})
+    private var shoulderMenus: [Menu] {
+        items.filter({$0.part! == Part.shoulder.rawValue})
+    }
+    private var bicepsMenus: [Menu] {
+        items.filter({$0.part! == Part.biceps.rawValue})
+    }
+    private var tricepsMenus: [Menu] {
+        items.filter({$0.part! == Part.triceps.rawValue})
     }
     private var legMenus: [Menu] {
         items.filter({$0.part! == Part.leg.rawValue})
@@ -36,7 +42,7 @@ struct ContentView: View {
                     ForEach(chestMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: SubContentView(menu: item)) {
                             }
                         }
                     }
@@ -46,28 +52,47 @@ struct ContentView: View {
                     ForEach(backMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: SubContentView(menu: item)) {
                             }
                         }
                     }
                     .onDelete(perform: deleteItems)
                 }
-                Section(header: Text("Arm")) {
-                    ForEach(armMenus) { item in
+                Section(header: Text("Shoulder")) {
+                    ForEach(shoulderMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: SubContentView(menu: item)) {
                             }
                         }
                     }
                     .onDelete(perform: deleteItems)
                 }
-                
+                Section(header: Text("Biceps")) {
+                    ForEach(bicepsMenus) { item in
+                        HStack {
+                            Text(item.title!)
+                            NavigationLink(destination: SubContentView(menu: item)) {
+                            }
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
+                }
+                Section(header: Text("Triceps")) {
+                    ForEach(tricepsMenus) { item in
+                        HStack {
+                            Text(item.title!)
+                            NavigationLink(destination: SubContentView(menu: item)) {
+                            }
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
+                }
                 Section(header: Text("Leg")) {
                     ForEach(legMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: SubContentView(menu: item)) {
                             }
                         }
                     }
