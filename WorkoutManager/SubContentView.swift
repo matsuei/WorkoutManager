@@ -49,8 +49,15 @@ struct SubContentView: View {
     var body: some View {
         List {
             Section(header: Text("Memo")) {
-                TextField("Memo", text: $memo)
-                    .disableAutocorrection(true)
+                TextField("Memo",
+                          text: $memo,
+                          onCommit: {
+                            addItem()
+                          })
+                .disableAutocorrection(true)
+                .onAppear {
+                    memo = menu.memo!
+                }
             }
             ForEach(listItems) { item in
                 Section(header: Text(item.dateString)) {
@@ -83,6 +90,16 @@ struct SubContentView: View {
         .sheet(isPresented: $showingModal) {
             AddRecordView(menuID: menu.id!)
                 .environment(\.managedObjectContext, viewContext)
+        }
+    }
+    
+    private func addItem() {
+        menu.memo = memo
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
     
