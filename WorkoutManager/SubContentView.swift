@@ -49,12 +49,16 @@ struct SubContentView: View {
     var body: some View {
         List {
             Section(header: Text("Memo")) {
-                TextField("Memo",
-                          text: $memo,
-                          onCommit: {
+                ZStack(alignment: .leading) {
+                    if memo.isEmpty {
+                        Text(" Memo")
+                            .foregroundColor(.secondary)
+                    }
+                    TextEditor(text: $memo)
+                        .onChange(of: memo) { _ in
                             addItem()
-                          })
-                .disableAutocorrection(true)
+                    }
+                }
                 .onAppear {
                     memo = menu.memo!
                 }
