@@ -1,5 +1,5 @@
 //
-//  SubContentView.swift
+//  RecordsListView.swift
 //  WorkoutManager
 //
 //  Created by 松栄健太 on 2021/04/06.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SubContentView: View {
+struct RecordsListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest private var records: FetchedResults<Record>
     private struct ListItem: Identifiable {
@@ -117,7 +117,6 @@ struct SubContentView: View {
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { records[$0] }.forEach(viewContext.delete)
-
             do {
                 try viewContext.save()
             } catch {
@@ -135,8 +134,8 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-struct SubContentView_Previews: PreviewProvider {
+struct RecordsListView_Previews: PreviewProvider {
     static var previews: some View {
-        SubContentView(menuID: "test").environment(\.managedObjectContext, PersistenceController.addMenuPreview.container.viewContext)
+        RecordsListView(menuID: "test").environment(\.managedObjectContext, PersistenceController.recordsListPreview.container.viewContext)
     }
 }

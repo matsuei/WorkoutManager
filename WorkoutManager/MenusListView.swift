@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MenusListView.swift
 //  WorkoutManager
 //
 //  Created by 松栄健太 on 2021/04/04.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct MenusListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var showingModal = false
 
@@ -42,7 +42,7 @@ struct ContentView: View {
                     ForEach(chestMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -52,7 +52,7 @@ struct ContentView: View {
                     ForEach(backMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -62,7 +62,7 @@ struct ContentView: View {
                     ForEach(shoulderMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -72,7 +72,7 @@ struct ContentView: View {
                     ForEach(bicepsMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -82,7 +82,7 @@ struct ContentView: View {
                     ForEach(tricepsMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -92,7 +92,7 @@ struct ContentView: View {
                     ForEach(legMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
+                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -143,8 +143,8 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-struct ContentView_Previews: PreviewProvider {
+struct MenusListView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        MenusListView().environment(\.managedObjectContext, PersistenceController.menuListPreview.container.viewContext)
     }
 }

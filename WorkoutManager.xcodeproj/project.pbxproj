@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		CD3FAB21261955E800FB3E45 /* WorkoutManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB20261955E800FB3E45 /* WorkoutManagerApp.swift */; };
-		CD3FAB23261955E800FB3E45 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB22261955E800FB3E45 /* ContentView.swift */; };
+		CD3FAB23261955E800FB3E45 /* MenusListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB22261955E800FB3E45 /* MenusListView.swift */; };
 		CD3FAB25261955EB00FB3E45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD3FAB24261955EB00FB3E45 /* Assets.xcassets */; };
 		CD3FAB28261955EB00FB3E45 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD3FAB27261955EB00FB3E45 /* Preview Assets.xcassets */; };
 		CD3FAB2A261955EB00FB3E45 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB29261955EB00FB3E45 /* Persistence.swift */; };
 		CD3FAB2D261955EB00FB3E45 /* WorkoutManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB2B261955EB00FB3E45 /* WorkoutManager.xcdatamodeld */; };
 		CD3FAB38261955EB00FB3E45 /* WorkoutManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB37261955EB00FB3E45 /* WorkoutManagerTests.swift */; };
 		CD3FAB43261955EB00FB3E45 /* WorkoutManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB42261955EB00FB3E45 /* WorkoutManagerUITests.swift */; };
-		CD3FAB54261C8C6800FB3E45 /* SubContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB53261C8C6800FB3E45 /* SubContentView.swift */; };
+		CD3FAB54261C8C6800FB3E45 /* RecordsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB53261C8C6800FB3E45 /* RecordsListView.swift */; };
 		CD3FAB5F262323EC00FB3E45 /* AddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */; };
 		CDEA12DC2640D73900B9190C /* AddRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEA12DB2640D73900B9190C /* AddRecordView.swift */; };
 /* End PBXBuildFile section */
@@ -40,7 +40,7 @@
 /* Begin PBXFileReference section */
 		CD3FAB1D261955E800FB3E45 /* WorkoutManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD3FAB20261955E800FB3E45 /* WorkoutManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManagerApp.swift; sourceTree = "<group>"; };
-		CD3FAB22261955E800FB3E45 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD3FAB22261955E800FB3E45 /* MenusListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenusListView.swift; sourceTree = "<group>"; };
 		CD3FAB24261955EB00FB3E45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD3FAB27261955EB00FB3E45 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD3FAB29261955EB00FB3E45 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		CD3FAB3E261955EB00FB3E45 /* WorkoutManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WorkoutManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD3FAB42261955EB00FB3E45 /* WorkoutManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManagerUITests.swift; sourceTree = "<group>"; };
 		CD3FAB44261955EB00FB3E45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD3FAB53261C8C6800FB3E45 /* SubContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubContentView.swift; sourceTree = "<group>"; };
+		CD3FAB53261C8C6800FB3E45 /* RecordsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsListView.swift; sourceTree = "<group>"; };
 		CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMenuView.swift; sourceTree = "<group>"; };
 		CDEA12DB2640D73900B9190C /* AddRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,8 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				CD3FAB20261955E800FB3E45 /* WorkoutManagerApp.swift */,
-				CD3FAB22261955E800FB3E45 /* ContentView.swift */,
-				CD3FAB53261C8C6800FB3E45 /* SubContentView.swift */,
+				CD3FAB22261955E800FB3E45 /* MenusListView.swift */,
+				CD3FAB53261C8C6800FB3E45 /* RecordsListView.swift */,
 				CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */,
 				CDEA12DB2640D73900B9190C /* AddRecordView.swift */,
 				CD3FAB24261955EB00FB3E45 /* Assets.xcassets */,
@@ -278,8 +278,8 @@
 				CD3FAB2A261955EB00FB3E45 /* Persistence.swift in Sources */,
 				CD3FAB5F262323EC00FB3E45 /* AddMenuView.swift in Sources */,
 				CD3FAB2D261955EB00FB3E45 /* WorkoutManager.xcdatamodeld in Sources */,
-				CD3FAB23261955E800FB3E45 /* ContentView.swift in Sources */,
-				CD3FAB54261C8C6800FB3E45 /* SubContentView.swift in Sources */,
+				CD3FAB23261955E800FB3E45 /* MenusListView.swift in Sources */,
+				CD3FAB54261C8C6800FB3E45 /* RecordsListView.swift in Sources */,
 				CD3FAB21261955E800FB3E45 /* WorkoutManagerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

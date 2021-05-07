@@ -10,7 +10,7 @@ import CoreData
 struct PersistenceController {
     static let shared = PersistenceController()
 
-    static var preview: PersistenceController = {
+    static var menuListPreview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for i in 0..<10 {
@@ -37,7 +37,7 @@ struct PersistenceController {
         return result
     }()
     
-    static var addMenuPreview: PersistenceController = {
+    static var recordsListPreview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         let menu = Menu(context: viewContext)
