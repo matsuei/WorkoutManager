@@ -67,7 +67,6 @@ struct SubContentView: View {
                 Section(header: Text(item.dateString)) {
                     ForEach(item.records) { record in
                         HStack {
-                            Text("At: \(record.timestamp!, formatter: itemFormatter)")
                             Text("Weight: \(String(record.weight))")
                             Text("Reps: \(String(record.reps))")
                         }
