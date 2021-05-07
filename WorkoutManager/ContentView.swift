@@ -42,7 +42,7 @@ struct ContentView: View {
                     ForEach(chestMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menu: item)) {
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -52,7 +52,7 @@ struct ContentView: View {
                     ForEach(backMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menu: item)) {
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -62,7 +62,7 @@ struct ContentView: View {
                     ForEach(shoulderMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menu: item)) {
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -72,7 +72,7 @@ struct ContentView: View {
                     ForEach(bicepsMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menu: item)) {
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -82,7 +82,7 @@ struct ContentView: View {
                     ForEach(tricepsMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menu: item)) {
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
                             }
                         }
                     }
@@ -92,7 +92,7 @@ struct ContentView: View {
                     ForEach(legMenus) { item in
                         HStack {
                             Text(item.title!)
-                            NavigationLink(destination: SubContentView(menu: item)) {
+                            NavigationLink(destination: SubContentView(menuID: item.id!)) {
                             }
                         }
                     }

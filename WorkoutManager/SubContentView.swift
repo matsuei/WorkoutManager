@@ -9,13 +9,7 @@ import SwiftUI
 
 struct SubContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Record.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Record>
-    private var filteredItems: [Record] {
-        items.filter({$0.menuID == menu.id!}).sorted(by: { $0.timestamp!.compare($1.timestamp!) == .orderedDescending})
-    }
+    @FetchRequest private var records: FetchedResults<Record>
     private struct ListItem: Identifiable {
         var id = UUID()
         var dateString: String
@@ -23,28 +17,39 @@ struct SubContentView: View {
     }
     private var listItems: [ListItem] {
         var items = [ListItem]()
-        guard let date = filteredItems.first?.timestamp else {
+        guard let date = records.first?.timestamp else {
             return items
         }
         var dateString = itemFormatter.string(from: date)
-        var records: [Record] = []
-        filteredItems.forEach { record in
+        var itemRecords: [Record] = []
+        records.forEach { record in
             if dateString == itemFormatter.string(from: record.timestamp!) {
-                records.append(record)
+                itemRecords.append(record)
             } else {
-                items.append(ListItem(dateString: dateString, records: records))
+                items.append(ListItem(dateString: dateString, records: itemRecords))
                 dateString = itemFormatter.string(from: record.timestamp!)
-                records = [record]
+                itemRecords = [record]
             }
         }
         if items.isEmpty {
-            items.append(ListItem(dateString: dateString, records: records))
+            items.append(ListItem(dateString: dateString, records: itemRecords))
         }
         return items
     }
     @State private var showingModal = false
     @State private var memo: String = ""
-    let menu: Menu
+    @FetchRequest var menu: FetchedResults<Menu>
+    
+    init(menuID: String) {
+        _menu = FetchRequest(
+            sortDescriptors: [NSSortDescriptor(keyPath: \Menu.id, ascending: true)],
+            predicate: NSPredicate(format: "id == %@", menuID),
+            animation: .default)
+        _records = FetchRequest(
+            sortDescriptors: [NSSortDescriptor(keyPath: \Record.timestamp, ascending: true)],
+            predicate: NSPredicate(format: "menuID == %@", menuID),
+            animation: .default)
+    }
     
     var body: some View {
         List {
@@ -60,7 +65,7 @@ struct SubContentView: View {
                     }
                 }
                 .onAppear {
-                    memo = menu.memo!
+                    memo = menu.first?.memo ?? ""
                 }
             }
             ForEach(listItems) { item in
@@ -91,12 +96,15 @@ struct SubContentView: View {
         .navigationBarTitle("record",
                             displayMode: .inline)
         .sheet(isPresented: $showingModal) {
-            AddRecordView(menuID: menu.id!)
+            AddRecordView(menuID: menu.first?.id ?? "")
                 .environment(\.managedObjectContext, viewContext)
         }
     }
     
     private func addItem() {
+        guard let menu = menu.first else {
+            return
+        }
         menu.memo = memo
         do {
             try viewContext.save()
@@ -108,7 +116,7 @@ struct SubContentView: View {
     
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { filteredItems[$0] }.forEach(viewContext.delete)
+            offsets.map { records[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
@@ -129,6 +137,6 @@ private let itemFormatter: DateFormatter = {
 
 struct SubContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SubContentView(menu: Menu()).environment(\.managedObjectContext, PersistenceController.addMenuPreview.container.viewContext)
+        SubContentView(menuID: "test").environment(\.managedObjectContext, PersistenceController.addMenuPreview.container.viewContext)
     }
 }

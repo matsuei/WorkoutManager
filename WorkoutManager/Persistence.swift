@@ -40,12 +40,15 @@ struct PersistenceController {
     static var addMenuPreview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
+        let menu = Menu(context: viewContext)
+        menu.id = "test"
+        menu.title = "test"
         for _ in 0..<5 {
             let record = Record(context: viewContext)
             record.weight = 30
             record.timestamp = Date(timeIntervalSinceNow: TimeInterval(-60 * 60 * 24 * Int.random(in: 0..<365)))
             record.reps = 10
-            record.menuID = ""
+            record.menuID = "test"
         }
         do {
             try viewContext.save()
