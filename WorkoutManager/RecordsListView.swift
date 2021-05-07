@@ -12,6 +12,7 @@ struct RecordsListView: View {
     @FetchRequest private var records: FetchedResults<Record>
     private struct ListItem: Identifiable {
         var id = UUID()
+        var index: Int
         var dateString: String
         var records: [Record]
     }
@@ -22,17 +23,19 @@ struct RecordsListView: View {
         }
         var dateString = itemFormatter.string(from: date)
         var itemRecords: [Record] = []
+        var index = 0
         records.forEach { record in
             if dateString == itemFormatter.string(from: record.timestamp!) {
                 itemRecords.append(record)
             } else {
-                items.append(ListItem(dateString: dateString, records: itemRecords))
+                items.append(ListItem(index: index, dateString: dateString, records: itemRecords))
+                index = index + 1
                 dateString = itemFormatter.string(from: record.timestamp!)
                 itemRecords = [record]
             }
         }
         if items.isEmpty {
-            items.append(ListItem(dateString: dateString, records: itemRecords))
+            items.append(ListItem(index: index, dateString: dateString, records: itemRecords))
         }
         return items
     }
@@ -76,7 +79,9 @@ struct RecordsListView: View {
                             Text("Reps: \(String(record.reps))")
                         }
                     }
-                    .onDelete(perform: deleteItems)
+                    .onDelete(perform: { indexSet in
+                        deleteItems(offsets: indexSet, index: item.index)
+                    })
                 }
             }
             Section {
@@ -114,9 +119,9 @@ struct RecordsListView: View {
         }
     }
     
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteItems(offsets: IndexSet, index: Int) {
         withAnimation {
-            offsets.map { records[$0] }.forEach(viewContext.delete)
+            offsets.map { listItems[index].records[$0] }.forEach(viewContext.delete)
             do {
                 try viewContext.save()
             } catch {
