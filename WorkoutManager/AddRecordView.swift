@@ -13,6 +13,7 @@ struct AddRecordView: View {
     @State private var reps: String = ""
     @Environment(\.presentationMode) private var presentationMode
     let menuID: String
+    let previousRecord: (weight: Float, reps: Int64)
     
     var body: some View {
         NavigationView {
@@ -27,7 +28,8 @@ struct AddRecordView: View {
                 }
                 Section {
                     Button(action: {
-                        
+                        weight = String(previousRecord.weight)
+                        reps = String(previousRecord.reps)
                     }) {
                         Label("Input Previous Record", systemImage: "rectangle.and.pencil.and.ellipsis")
                     }
@@ -71,6 +73,6 @@ struct AddRecordView: View {
 
 struct AddRecordView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRecordView(menuID: "")
+        AddRecordView(menuID: "", previousRecord: (10, 10))
     }
 }
