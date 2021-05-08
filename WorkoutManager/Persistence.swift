@@ -43,10 +43,16 @@ struct PersistenceController {
         let menu = Menu(context: viewContext)
         menu.id = "test"
         menu.title = "test"
-        for _ in 0..<5 {
+        for i in 0..<6 {
             let record = Record(context: viewContext)
             record.weight = 30
-            record.timestamp = Date(timeIntervalSinceNow: TimeInterval(-60 * 60 * 24 * Int.random(in: 0..<365)))
+            if i < 2 {
+                record.timestamp = Date(timeIntervalSinceNow: TimeInterval(-60 * 60 * 24 * 1))
+            } else if i < 4 {
+                record.timestamp = Date(timeIntervalSinceNow: TimeInterval(-60 * 60 * 24 * 2))
+            } else {
+                record.timestamp = Date(timeIntervalSinceNow: TimeInterval(-60 * 60 * 24 * 3))
+            }
             record.reps = 10
             record.menuID = "test"
         }

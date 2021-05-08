@@ -21,20 +21,17 @@ struct RecordsListView: View {
         guard let date = records.first?.timestamp else {
             return items
         }
-        var dateString = itemFormatter.string(from: date)
-        var itemRecords: [Record] = []
         var index = 0
+        items.append(ListItem(index: index, dateString: itemFormatter.string(from: date), records: []))
         records.forEach { record in
-            if dateString == itemFormatter.string(from: record.timestamp!) {
-                itemRecords.append(record)
+            if items[index].dateString == itemFormatter.string(from: record.timestamp!) {
+                items[index].records.append(record)
             } else {
-                items.append(ListItem(index: index, dateString: dateString, records: itemRecords))
                 index = index + 1
-                dateString = itemFormatter.string(from: record.timestamp!)
-                itemRecords = [record]
+                let dateString = itemFormatter.string(from: record.timestamp!)
+                items.append(ListItem(index: index, dateString: dateString, records: [record]))
             }
         }
-        items.append(ListItem(index: index, dateString: dateString, records: itemRecords))
         return items
     }
     @State private var showingModal = false
