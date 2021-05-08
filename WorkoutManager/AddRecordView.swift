@@ -17,12 +17,21 @@ struct AddRecordView: View {
     var body: some View {
         NavigationView {
             List {
-                TextField("Weight", text: $weight)
-                    .disableAutocorrection(true)
-                    .keyboardType(.numberPad)
-                TextField("Reps", text: $reps)
-                    .disableAutocorrection(true)
-                    .keyboardType(.numberPad)
+                Section {
+                    TextField("Weight", text: $weight)
+                        .disableAutocorrection(true)
+                        .keyboardType(.numberPad)
+                    TextField("Reps", text: $reps)
+                        .disableAutocorrection(true)
+                        .keyboardType(.numberPad)
+                }
+                Section {
+                    Button(action: {
+                        
+                    }) {
+                        Label("Input Previous Record", systemImage: "rectangle.and.pencil.and.ellipsis")
+                    }
+                }
             }
             .listStyle(InsetGroupedListStyle())
             .toolbar {

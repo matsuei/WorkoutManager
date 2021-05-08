@@ -34,9 +34,7 @@ struct RecordsListView: View {
                 itemRecords = [record]
             }
         }
-        if items.isEmpty {
-            items.append(ListItem(index: index, dateString: dateString, records: itemRecords))
-        }
+        items.append(ListItem(index: index, dateString: dateString, records: itemRecords))
         return items
     }
     @State private var showingModal = false
