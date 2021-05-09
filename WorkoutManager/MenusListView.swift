@@ -16,6 +16,19 @@ struct MenusListView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Menu.part, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Menu>
+    private struct ListItem: Identifiable {
+        var id = UUID()
+        var section: Int
+        var part: Part
+        var menus: [Menu]
+    }
+    private var listItems: [ListItem] {
+        var itemss = [ListItem]()
+        Part.allCases.enumerated().forEach { index, part in
+            itemss.append(ListItem(section: index, part: part, menus: items.filter({$0.part! == part.rawValue})))
+        }
+        return itemss
+    }
     private var chestMenus: [Menu] {
         items.filter({$0.part! == Part.chest.rawValue})
     }
@@ -38,65 +51,19 @@ struct MenusListView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Chest")) {
-                    ForEach(chestMenus) { item in
-                        HStack {
-                            Text(item.title!)
-                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
+                ForEach(listItems) { item in
+                    Section(header: Text(item.part.rawValue)) {
+                        ForEach(item.menus) { menu in
+                            HStack {
+                                Text(menu.title!)
+                                NavigationLink(destination: RecordsListView(menuID: menu.id!)) {
+                                }
                             }
                         }
+                        .onDelete(perform: { indexSet in
+                            deleteItems(offsets: indexSet, section: item.section)
+                        })
                     }
-                    .onDelete(perform: deleteItems)
-                }
-                Section(header: Text("Back")) {
-                    ForEach(backMenus) { item in
-                        HStack {
-                            Text(item.title!)
-                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
-                            }
-                        }
-                    }
-                    .onDelete(perform: deleteItems)
-                }
-                Section(header: Text("Shoulder")) {
-                    ForEach(shoulderMenus) { item in
-                        HStack {
-                            Text(item.title!)
-                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
-                            }
-                        }
-                    }
-                    .onDelete(perform: deleteItems)
-                }
-                Section(header: Text("Biceps")) {
-                    ForEach(bicepsMenus) { item in
-                        HStack {
-                            Text(item.title!)
-                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
-                            }
-                        }
-                    }
-                    .onDelete(perform: deleteItems)
-                }
-                Section(header: Text("Triceps")) {
-                    ForEach(tricepsMenus) { item in
-                        HStack {
-                            Text(item.title!)
-                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
-                            }
-                        }
-                    }
-                    .onDelete(perform: deleteItems)
-                }
-                Section(header: Text("Leg")) {
-                    ForEach(legMenus) { item in
-                        HStack {
-                            Text(item.title!)
-                            NavigationLink(destination: RecordsListView(menuID: item.id!)) {
-                            }
-                        }
-                    }
-                    .onDelete(perform: deleteItems)
                 }
             }
             .listStyle(InsetGroupedListStyle())
@@ -122,10 +89,9 @@ struct MenusListView: View {
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteItems(offsets: IndexSet, section: Int) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            offsets.map { listItems[section].menus[$0] }.forEach(viewContext.delete)
             do {
                 try viewContext.save()
             } catch {

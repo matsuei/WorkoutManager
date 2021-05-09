@@ -12,7 +12,7 @@ struct RecordsListView: View {
     @FetchRequest private var records: FetchedResults<Record>
     private struct ListItem: Identifiable {
         var id = UUID()
-        var index: Int
+        var section: Int
         var dateString: String
         var records: [Record]
     }
@@ -21,15 +21,15 @@ struct RecordsListView: View {
         guard let date = records.first?.timestamp else {
             return items
         }
-        var index = 0
-        items.append(ListItem(index: index, dateString: itemFormatter.string(from: date), records: []))
+        var section = 0
+        items.append(ListItem(section: section, dateString: itemFormatter.string(from: date), records: []))
         records.forEach { record in
-            if items[index].dateString == itemFormatter.string(from: record.timestamp!) {
-                items[index].records.append(record)
+            if items[section].dateString == itemFormatter.string(from: record.timestamp!) {
+                items[section].records.append(record)
             } else {
-                index = index + 1
+                section = section + 1
                 let dateString = itemFormatter.string(from: record.timestamp!)
-                items.append(ListItem(index: index, dateString: dateString, records: [record]))
+                items.append(ListItem(section: section, dateString: dateString, records: [record]))
             }
         }
         return items
@@ -75,7 +75,7 @@ struct RecordsListView: View {
                         }
                     }
                     .onDelete(perform: { indexSet in
-                        deleteItems(offsets: indexSet, index: item.index)
+                        deleteItems(offsets: indexSet, section: item.section)
                     })
                 }
             }
@@ -116,9 +116,9 @@ struct RecordsListView: View {
         }
     }
     
-    private func deleteItems(offsets: IndexSet, index: Int) {
+    private func deleteItems(offsets: IndexSet, section: Int) {
         withAnimation {
-            offsets.map { listItems[index].records[$0] }.forEach(viewContext.delete)
+            offsets.map { listItems[section].records[$0] }.forEach(viewContext.delete)
             do {
                 try viewContext.save()
             } catch {

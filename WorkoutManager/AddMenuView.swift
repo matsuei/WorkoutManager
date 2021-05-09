@@ -13,6 +13,7 @@ enum Part: String, CaseIterable {
     case shoulder
     case biceps
     case triceps
+    case abs
     case leg
 }
 
