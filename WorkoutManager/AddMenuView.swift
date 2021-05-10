@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-enum Part: String, CaseIterable {
-    case chest
-    case back
-    case shoulder
-    case biceps
-    case triceps
-    case abs
-    case leg
-}
-
 struct AddMenuView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var title: String = ""

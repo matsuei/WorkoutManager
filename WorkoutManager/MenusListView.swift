@@ -29,24 +29,6 @@ struct MenusListView: View {
         }
         return itemss
     }
-    private var chestMenus: [Menu] {
-        items.filter({$0.part! == Part.chest.rawValue})
-    }
-    private var backMenus: [Menu] {
-        items.filter({$0.part! == Part.back.rawValue})
-    }
-    private var shoulderMenus: [Menu] {
-        items.filter({$0.part! == Part.shoulder.rawValue})
-    }
-    private var bicepsMenus: [Menu] {
-        items.filter({$0.part! == Part.biceps.rawValue})
-    }
-    private var tricepsMenus: [Menu] {
-        items.filter({$0.part! == Part.triceps.rawValue})
-    }
-    private var legMenus: [Menu] {
-        items.filter({$0.part! == Part.leg.rawValue})
-    }
 
     var body: some View {
         NavigationView {
