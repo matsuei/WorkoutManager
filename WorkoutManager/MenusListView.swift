@@ -34,7 +34,7 @@ struct MenusListView: View {
         NavigationView {
             List {
                 ForEach(listItems) { item in
-                    Section(header: Text(item.part.rawValue)) {
+                    Section(header: Text(item.part.text)) {
                         ForEach(item.menus) { menu in
                             HStack {
                                 Text(menu.title!)
@@ -93,6 +93,10 @@ private let itemFormatter: DateFormatter = {
 
 struct MenusListView_Previews: PreviewProvider {
     static var previews: some View {
-        MenusListView().environment(\.managedObjectContext, PersistenceController.menuListPreview.container.viewContext)
+        ForEach(["en", "ja"], id: \.self) { id in
+            MenusListView()
+                .environment(\.managedObjectContext, PersistenceController.menuListPreview.container.viewContext)
+                .environment(\.locale, .init(identifier: id)) 
+        }
     }
 }

@@ -5,3 +5,11 @@
   Created by 松栄健太 on 2021/05/10.
   
 */
+
+"chest" = "Chest";
+"back" = "Back";
+"shoulder" = "Shoulder";
+"biceps" = "Biceps";
+"triceps" = "Triceps";
+"abs" = "Abs";
+"leg" = "Leg";
