@@ -5,3 +5,11 @@
   Created by 松栄健太 on 2021/05/10.
   
 */
+
+"chest" = "胸";
+"back" = "背中";
+"shoulder" = "肩";
+"biceps" = "三頭筋";
+"triceps" = "二頭筋";
+"abs" = "腹筋";
+"leg" = "脚";
