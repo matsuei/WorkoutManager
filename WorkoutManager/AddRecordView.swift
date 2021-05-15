@@ -31,7 +31,7 @@ struct AddRecordView: View {
                         weight = String(previousRecord.weight)
                         reps = String(previousRecord.reps)
                     }) {
-                        Label("Input Previous Record", systemImage: "rectangle.and.pencil.and.ellipsis")
+                        Label("inputPreviousRecord", systemImage: "rectangle.and.pencil.and.ellipsis")
                     }
                 }
             }

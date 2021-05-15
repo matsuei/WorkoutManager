@@ -17,13 +17,13 @@ struct AddMenuView: View {
         NavigationView {
             List {
                 Section {
-                    TextField("Title", text: $title)
+                    TextField("title", text: $title)
                         .disableAutocorrection(true)
                 }
                 Section {
-                    Picker(selection: $part, label: Text("Chose Part")) {
+                    Picker(selection: $part, label: Text("chosePart")) {
                         ForEach(Part.allCases, id: \.self) { (part) in
-                            Text(part.rawValue)
+                            Text(part.text)
                         }
                     }
                 }
