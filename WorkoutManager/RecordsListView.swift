@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+struct MenuContent {
+    var id: String
+    var part: Part
+    var title: String
+    var memo: String
+}
+
 struct RecordsListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest private var records: FetchedResults<Record>
@@ -35,22 +42,41 @@ struct RecordsListView: View {
         return items
     }
     @State private var showingModal = false
-    @State private var memo: String = ""
+    @State private var title: String
+    @State private var part: Part
+    @State private var memo: String
     @FetchRequest var menu: FetchedResults<Menu>
     
-    init(menuID: String) {
+    init(menuContent: MenuContent) {
         _menu = FetchRequest(
             sortDescriptors: [NSSortDescriptor(keyPath: \Menu.id, ascending: true)],
-            predicate: NSPredicate(format: "id == %@", menuID),
+            predicate: NSPredicate(format: "id == %@", menuContent.id),
             animation: .default)
         _records = FetchRequest(
             sortDescriptors: [NSSortDescriptor(keyPath: \Record.timestamp, ascending: true)],
-            predicate: NSPredicate(format: "menuID == %@", menuID),
+            predicate: NSPredicate(format: "menuID == %@", menuContent.id),
             animation: .default)
+        _title = State(initialValue: menuContent.title)
+        _part = State(initialValue: menuContent.part)
+        _memo = State(initialValue: menuContent.memo)
     }
     
     var body: some View {
         List {
+            Section() {
+                TextEditor(text: $title)
+                    .onChange(of: title) { _ in
+                        addItem()
+                }
+                Picker(selection: $part, label: Text("chosePart")) {
+                    ForEach(Part.allCases, id: \.self) { (part) in
+                        Text(part.text)
+                    }
+                }
+                .onChange(of: part, perform: { value in
+                    addItem()
+                })
+            }
             Section(header: Text("memo")) {
                 ZStack(alignment: .leading) {
                     if memo.isEmpty {
@@ -61,9 +87,6 @@ struct RecordsListView: View {
                         .onChange(of: memo) { _ in
                             addItem()
                     }
-                }
-                .onAppear {
-                    memo = menu.first?.memo ?? ""
                 }
             }
             ForEach(listItems) { item in
@@ -107,6 +130,8 @@ struct RecordsListView: View {
         guard let menu = menu.first else {
             return
         }
+        menu.title = title
+        menu.part = part.rawValue
         menu.memo = memo
         do {
             try viewContext.save()
@@ -138,6 +163,7 @@ private let itemFormatter: DateFormatter = {
 
 struct RecordsListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecordsListView(menuID: "test").environment(\.managedObjectContext, PersistenceController.recordsListPreview.container.viewContext)
+        let menuContent = MenuContent(id: "test", part: .chest, title: "title", memo: "")
+        return RecordsListView(menuContent: menuContent).environment(\.managedObjectContext, PersistenceController.recordsListPreview.container.viewContext)
     }
 }
