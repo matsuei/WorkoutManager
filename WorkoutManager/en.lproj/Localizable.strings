@@ -13,3 +13,10 @@
 "triceps" = "Triceps";
 "abs" = "Abs";
 "leg" = "Leg";
+"addRecord" = "Add Record";
+"memo" = "Memo";
+"register" = "Register";
+"cancel" = "Cancel";
+"title" = "Title";
+"chosePart" = "Chose Part";
+"inputPreviousRecord" = "Input Previous Record";

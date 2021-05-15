@@ -13,3 +13,10 @@
 "triceps" = "二頭筋";
 "abs" = "腹筋";
 "leg" = "脚";
+"addRecord" = "記録を追加";
+"memo" = "メモ";
+"register" = "登録";
+"cancel" = "キャンセル";
+"title" = "タイトル";
+"chosePart" = "部位を選択";
+"inputPreviousRecord" = "以前の記録を入力";

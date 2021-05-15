@@ -51,10 +51,10 @@ struct RecordsListView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Memo")) {
+            Section(header: Text("memo")) {
                 ZStack(alignment: .leading) {
                     if memo.isEmpty {
-                        Text(" Memo")
+                        Text("memo")
                             .foregroundColor(.secondary)
                     }
                     TextEditor(text: $memo)
@@ -83,7 +83,7 @@ struct RecordsListView: View {
                 Button(action: {
                     showingModal.toggle()
                 }) {
-                    Label("Add Item", systemImage: "plus")
+                    Label(NSLocalizedString("addRecord", comment: "Add Record"), systemImage: "plus")
                 }
             }
         }
