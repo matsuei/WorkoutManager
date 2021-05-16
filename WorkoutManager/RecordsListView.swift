@@ -53,7 +53,7 @@ struct RecordsListView: View {
             predicate: NSPredicate(format: "id == %@", menuContent.id),
             animation: .default)
         _records = FetchRequest(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Record.timestamp, ascending: true)],
+            sortDescriptors: [NSSortDescriptor(keyPath: \Record.timestamp, ascending: false)],
             predicate: NSPredicate(format: "menuID == %@", menuContent.id),
             animation: .default)
         _title = State(initialValue: menuContent.title)
@@ -102,7 +102,13 @@ struct RecordsListView: View {
                     })
                 }
             }
-            Section {
+        }
+        .listStyle(InsetGroupedListStyle())
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     showingModal.toggle()
                 }) {
@@ -110,13 +116,7 @@ struct RecordsListView: View {
                 }
             }
         }
-        .listStyle(InsetGroupedListStyle())
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-            }
-        }
-        .navigationBarTitle("record",
+        .navigationBarTitle(title,
                             displayMode: .inline)
         .sheet(isPresented: $showingModal) {
             let weight: Float = records.last?.weight ?? 0
