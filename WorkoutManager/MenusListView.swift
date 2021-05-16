@@ -38,7 +38,7 @@ struct MenusListView: View {
                         ForEach(item.menus) { menu in
                             HStack {
                                 Text(menu.title!)
-                                NavigationLink(destination: RecordsListView(menuID: menu.id!)) {
+                                NavigationLink(destination: RecordsListView(menuContent: MenuContent(id: menu.id!, part: Part(rawValue: menu.part!)!, title: menu.title!, memo: menu.memo ?? ""))) {
                                 }
                             }
                         }
