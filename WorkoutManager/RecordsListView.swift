@@ -119,8 +119,8 @@ struct RecordsListView: View {
         .navigationBarTitle(title,
                             displayMode: .inline)
         .sheet(isPresented: $showingModal) {
-            let weight: Float = records.last?.weight ?? 0
-            let reps: Int64 = records.last?.reps ?? 0
+            let weight: Float = records.first?.weight ?? 0
+            let reps: Int64 = records.first?.reps ?? 0
             AddRecordView(menuID: menu.first?.id ?? "", previousRecord: (weight, reps))
                 .environment(\.managedObjectContext, viewContext)
         }
