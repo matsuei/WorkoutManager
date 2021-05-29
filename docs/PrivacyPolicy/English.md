@@ -9,4 +9,5 @@ This app dosen't provide user data to third party.
 
 # Contact
 If you have a question, please contact below.
-dev.matsugon@gmail.com
+
+dev.matsugon＠gmail.com
