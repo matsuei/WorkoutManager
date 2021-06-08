@@ -13,7 +13,7 @@ struct WorkoutManagerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MenusListView()
+            MainTabView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

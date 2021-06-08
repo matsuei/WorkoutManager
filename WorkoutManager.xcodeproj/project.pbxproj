@@ -19,6 +19,7 @@
 		CD3FAB5F262323EC00FB3E45 /* AddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */; };
 		CD4D306326495E2900AD3D6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD4D306526495E2900AD3D6B /* Localizable.strings */; };
 		CD4D306826495FBA00AD3D6B /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D306726495FBA00AD3D6B /* Part.swift */; };
+		CDC982A1266FA025008C2DD9 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC982A0266FA025008C2DD9 /* MainTabView.swift */; };
 		CDEA12DC2640D73900B9190C /* AddRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEA12DB2640D73900B9190C /* AddRecordView.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		CD4D306426495E2900AD3D6B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD4D306626495E3700AD3D6B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD4D306726495FBA00AD3D6B /* Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
+		CDC982A0266FA025008C2DD9 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		CDEA12DB2640D73900B9190C /* AddRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				CD3FAB20261955E800FB3E45 /* WorkoutManagerApp.swift */,
+				CDC982A0266FA025008C2DD9 /* MainTabView.swift */,
 				CD3FAB22261955E800FB3E45 /* MenusListView.swift */,
 				CD3FAB53261C8C6800FB3E45 /* RecordsListView.swift */,
 				CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */,
@@ -285,6 +288,7 @@
 			files = (
 				CDEA12DC2640D73900B9190C /* AddRecordView.swift in Sources */,
 				CD3FAB2A261955EB00FB3E45 /* Persistence.swift in Sources */,
+				CDC982A1266FA025008C2DD9 /* MainTabView.swift in Sources */,
 				CD3FAB5F262323EC00FB3E45 /* AddMenuView.swift in Sources */,
 				CD3FAB2D261955EB00FB3E45 /* WorkoutManager.xcdatamodeld in Sources */,
 				CD4D306826495FBA00AD3D6B /* Part.swift in Sources */,
