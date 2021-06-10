@@ -18,11 +18,7 @@ struct MainTabView: View {
                     Image(systemName: "1.square.fill")
                     Text("menu")
                 }
-            Image(systemName: "faceid")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 200.0, height: 200.0)
-                            .foregroundColor(.blue)
+            AnalyticsView()
                 .tabItem {
                     Image(systemName: "2.square.fill")
                     Text("calender")
