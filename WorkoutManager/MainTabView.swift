@@ -19,6 +19,7 @@ struct MainTabView: View {
                     Text("menu")
                 }
             AnalyticsView()
+                .environment(\.managedObjectContext, viewContext)
                 .tabItem {
                     Image(systemName: "2.square.fill")
                     Text("calender")
