@@ -15,14 +15,14 @@ struct MainTabView: View {
             MenusListView()
                 .environment(\.managedObjectContext, viewContext)
                 .tabItem {
-                    Image(systemName: "1.square.fill")
-                    Text("menu")
+                    Image(systemName: "list.bullet")
+                    Text("Menu List")
                 }
             AnalyticsView()
                 .environment(\.managedObjectContext, viewContext)
                 .tabItem {
-                    Image(systemName: "2.square.fill")
-                    Text("calender")
+                    Image(systemName: "calendar")
+                    Text("Date Search")
                 }
         }
     }
