@@ -55,7 +55,7 @@ struct AnalyticsView: View {
                             print("Fetch error:", error)
                         }
                     }) {
-                        Label("Add Item", systemImage: "plus")
+                        Label("Search", systemImage: "magnifyingglass")
                     }
                 }
             }
