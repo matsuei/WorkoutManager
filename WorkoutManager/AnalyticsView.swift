@@ -91,6 +91,7 @@ struct AnalyticsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
+                        menuRecords = []
                         let menuFetchRequest = NSFetchRequest<Menu>(entityName: "Menu")
                         let predicate = NSPredicate(format: "part == %@", part.rawValue)
                         menuFetchRequest.predicate = predicate
