@@ -9,11 +9,49 @@ import SwiftUI
 import CoreData
 
 struct AnalyticsView: View {
+    private struct MenuRecord: Identifiable {
+        var id = UUID()
+        var menu: String
+        var record: Record
+    }
+    private struct ListItem: Identifiable {
+        var id = UUID()
+        var section: Int
+        var dateString: String
+        var menuRecords: [MenuRecord]
+    }
+    
+    private let itemFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
     @Environment(\.managedObjectContext) private var viewContext
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var part: Part = .chest
-    @State private var records: [Record] = []
+    @State private var menuRecords: [MenuRecord] = []
+    
+    private var listItems: [ListItem] {
+        var items = [ListItem]()
+        guard let date = menuRecords.first?.record.timestamp else {
+            return items
+        }
+        var section = 0
+        items.append(ListItem(section: section, dateString: itemFormatter.string(from: date), menuRecords: []))
+        menuRecords.forEach { menuRecord in
+            if items[section].dateString == itemFormatter.string(from: menuRecord.record.timestamp!) {
+                items[section].menuRecords.append(menuRecord)
+            } else {
+                section = section + 1
+                let dateString = itemFormatter.string(from: menuRecord.record.timestamp!)
+                items.append(ListItem(section: section, dateString: dateString, menuRecords: [menuRecord]))
+            }
+        }
+        return items
+    }
     
     var body: some View {
         NavigationView {
@@ -37,20 +75,37 @@ struct AnalyticsView: View {
                         }
                     }
                 }
-                ForEach(records) { record in
-                    Text("Weight: \(String(record.weight))")
-                    Text("Reps: \(String(record.reps))")
+                ForEach(listItems) { item in
+                    Section(header: Text(item.dateString)) {
+                        ForEach(item.menuRecords) { menuRecord in
+                            HStack {
+                                Text(menuRecord.menu)
+                                Text("Weight: \(String(menuRecord.record.weight))")
+                                Text("Reps: \(String(menuRecord.record.reps))")
+                            }
+                        }
+                    }
                 }
             }
             .listStyle(InsetGroupedListStyle())
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        let fetchRequest = NSFetchRequest<Record>(entityName: "Record")
-                        let predicate = NSPredicate(format: "timestamp BETWEEN {%@ , %@}", startDate as NSDate, endDate as NSDate)
-                        fetchRequest.predicate = predicate
+                        let menuFetchRequest = NSFetchRequest<Menu>(entityName: "Menu")
+                        let predicate = NSPredicate(format: "part == %@", part.rawValue)
+                        menuFetchRequest.predicate = predicate
                         do {
-                            records = try viewContext.fetch(fetchRequest)
+                            let menus = try viewContext.fetch(menuFetchRequest)
+                            try menus.forEach { menu in
+                                let fetchRequest = NSFetchRequest<Record>(entityName: "Record")
+                                let datePredicate = NSPredicate(format: "timestamp BETWEEN {%@ , %@}", startDate as NSDate, endDate as NSDate)
+                                let menuPredicate = NSPredicate(format: "menuID == %@", menu.id!)
+                                fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, menuPredicate])
+                                let records = try viewContext.fetch(fetchRequest)
+                                records.forEach { record in
+                                    menuRecords.append(MenuRecord( menu: menu.title!, record: record))
+                                }
+                            }
                         } catch {
                             print("Fetch error:", error)
                         }
