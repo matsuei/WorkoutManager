@@ -42,13 +42,16 @@ struct AnalyticsView: View {
         var section = 0
         items.append(ListItem(section: section, dateString: itemFormatter.string(from: date), menuRecords: []))
         menuRecords.forEach { menuRecord in
-            if items[section].dateString == itemFormatter.string(from: menuRecord.record.timestamp!) {
-                items[section].menuRecords.append(menuRecord)
+            if let index = items.firstIndex(where: {$0.dateString == itemFormatter.string(from: menuRecord.record.timestamp!)}) {
+                items[index].menuRecords.append(menuRecord)
             } else {
                 section = section + 1
                 let dateString = itemFormatter.string(from: menuRecord.record.timestamp!)
                 items.append(ListItem(section: section, dateString: dateString, menuRecords: [menuRecord]))
             }
+        }
+        items.sort { left, right in
+            return left.dateString > right.dateString
         }
         return items
     }
