@@ -20,6 +20,11 @@ struct AnalyticsView: View {
         var dateString: String
         var menuRecords: [MenuRecord]
     }
+    private struct Summary: Identifiable {
+        var id = UUID()
+        var menu: String
+        var count: Int
+    }
     
     private let itemFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -33,6 +38,7 @@ struct AnalyticsView: View {
     @State private var endDate = Date()
     @State private var part: Part = .chest
     @State private var menuRecords: [MenuRecord] = []
+    @State private var summaryList: [Summary] = []
     
     private var listItems: [ListItem] {
         var items = [ListItem]()
@@ -78,6 +84,14 @@ struct AnalyticsView: View {
                         }
                     }
                 }
+                Section {
+                    ForEach(summaryList) { summary in
+                        HStack {
+                            Text(summary.menu)
+                            Text("Sets: \(String(summary.count))")
+                        }
+                    }
+                }
                 ForEach(listItems) { item in
                     Section(header: Text(item.dateString)) {
                         ForEach(item.menuRecords) { menuRecord in
@@ -94,30 +108,36 @@ struct AnalyticsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        menuRecords = []
-                        let menuFetchRequest = NSFetchRequest<Menu>(entityName: "Menu")
-                        let predicate = NSPredicate(format: "part == %@", part.rawValue)
-                        menuFetchRequest.predicate = predicate
-                        do {
-                            let menus = try viewContext.fetch(menuFetchRequest)
-                            try menus.forEach { menu in
-                                let fetchRequest = NSFetchRequest<Record>(entityName: "Record")
-                                let datePredicate = NSPredicate(format: "timestamp BETWEEN {%@ , %@}", startDate as NSDate, endDate as NSDate)
-                                let menuPredicate = NSPredicate(format: "menuID == %@", menu.id!)
-                                fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, menuPredicate])
-                                let records = try viewContext.fetch(fetchRequest)
-                                records.forEach { record in
-                                    menuRecords.append(MenuRecord( menu: menu.title!, record: record))
-                                }
-                            }
-                        } catch {
-                            print("Fetch error:", error)
-                        }
+                        search()
                     }) {
                         Label("Search", systemImage: "magnifyingglass")
                     }
                 }
             }
+        }
+    }
+    
+    private func search() {
+        menuRecords = []
+        summaryList = []
+        let menuFetchRequest = NSFetchRequest<Menu>(entityName: "Menu")
+        let predicate = NSPredicate(format: "part == %@", part.rawValue)
+        menuFetchRequest.predicate = predicate
+        do {
+            let menus = try viewContext.fetch(menuFetchRequest)
+            try menus.forEach { menu in
+                let fetchRequest = NSFetchRequest<Record>(entityName: "Record")
+                let datePredicate = NSPredicate(format: "timestamp BETWEEN {%@ , %@}", startDate as NSDate, endDate as NSDate)
+                let menuPredicate = NSPredicate(format: "menuID == %@", menu.id!)
+                fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, menuPredicate])
+                let records = try viewContext.fetch(fetchRequest)
+                summaryList.append(Summary(menu: menu.title!, count: records.count))
+                records.forEach { record in
+                    menuRecords.append(MenuRecord( menu: menu.title!, record: record))
+                }
+            }
+        } catch {
+            print("Fetch error:", error)
         }
     }
 }
