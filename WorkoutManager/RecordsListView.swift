@@ -124,6 +124,12 @@ struct RecordsListView: View {
             AddRecordView(menuID: menu.first?.id ?? "", previousRecord: (weight, reps))
                 .environment(\.managedObjectContext, viewContext)
         }
+        .gesture(
+            TapGesture()
+                .onEnded { _ in
+                    UIApplication.shared.closeKeyboard()
+                }
+        )
     }
     
     private func addItem() {

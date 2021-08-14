@@ -19,6 +19,7 @@
 		CD3FAB5F262323EC00FB3E45 /* AddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FAB5E262323EC00FB3E45 /* AddMenuView.swift */; };
 		CD4D306326495E2900AD3D6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD4D306526495E2900AD3D6B /* Localizable.strings */; };
 		CD4D306826495FBA00AD3D6B /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D306726495FBA00AD3D6B /* Part.swift */; };
+		CD644D5426C758C800FD3A82 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD644D5326C758C800FD3A82 /* UIApplication+Extension.swift */; };
 		CDC982A1266FA025008C2DD9 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC982A0266FA025008C2DD9 /* MainTabView.swift */; };
 		CDC982A326723D65008C2DD9 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC982A226723D65008C2DD9 /* AnalyticsView.swift */; };
 		CDEA12DC2640D73900B9190C /* AddRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEA12DB2640D73900B9190C /* AddRecordView.swift */; };
@@ -61,6 +62,7 @@
 		CD4D306426495E2900AD3D6B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD4D306626495E3700AD3D6B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD4D306726495FBA00AD3D6B /* Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
+		CD644D5326C758C800FD3A82 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		CDC982A0266FA025008C2DD9 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		CDC982A226723D65008C2DD9 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		CDEA12DB2640D73900B9190C /* AddRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordView.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				CD3FAB2B261955EB00FB3E45 /* WorkoutManager.xcdatamodeld */,
 				CD3FAB26261955EB00FB3E45 /* Preview Content */,
 				CD4D306526495E2900AD3D6B /* Localizable.strings */,
+				CD644D5326C758C800FD3A82 /* UIApplication+Extension.swift */,
 			);
 			path = WorkoutManager;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				CD3FAB2D261955EB00FB3E45 /* WorkoutManager.xcdatamodeld in Sources */,
 				CD4D306826495FBA00AD3D6B /* Part.swift in Sources */,
 				CD3FAB23261955E800FB3E45 /* MenusListView.swift in Sources */,
+				CD644D5426C758C800FD3A82 /* UIApplication+Extension.swift in Sources */,
 				CD3FAB54261C8C6800FB3E45 /* RecordsListView.swift in Sources */,
 				CD3FAB21261955E800FB3E45 /* WorkoutManagerApp.swift in Sources */,
 			);
@@ -469,7 +473,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1010002;
+				CURRENT_PROJECT_VERSION = 1020000;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutManager/Preview Content\"";
 				DEVELOPMENT_TEAM = JACB4GSV36;
 				ENABLE_PREVIEWS = YES;
@@ -479,7 +483,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = matsue.WorkoutManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -495,7 +499,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1010002;
+				CURRENT_PROJECT_VERSION = 1020000;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutManager/Preview Content\"";
 				DEVELOPMENT_TEAM = JACB4GSV36;
 				ENABLE_PREVIEWS = YES;
@@ -505,7 +509,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = matsue.WorkoutManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
