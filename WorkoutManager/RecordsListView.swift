@@ -45,20 +45,17 @@ struct RecordsListView: View {
     @State private var title: String
     @State private var part: Part
     @State private var memo: String
-    @FetchRequest var menu: FetchedResults<Menu>
+    private var menu: Menu
     
-    init(menuContent: MenuContent) {
-        _menu = FetchRequest(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Menu.id, ascending: true)],
-            predicate: NSPredicate(format: "id == %@", menuContent.id),
-            animation: .default)
+    init(menu: Menu) {
+        self.menu = menu
         _records = FetchRequest(
             sortDescriptors: [NSSortDescriptor(keyPath: \Record.timestamp, ascending: false)],
-            predicate: NSPredicate(format: "menuID == %@", menuContent.id),
+            predicate: NSPredicate(format: "menuID == %@", menu.id ?? ""),
             animation: .default)
-        _title = State(initialValue: menuContent.title)
-        _part = State(initialValue: menuContent.part)
-        _memo = State(initialValue: menuContent.memo)
+        _title = State(initialValue: menu.title ?? "")
+        _part = State(initialValue: Part(rawValue: menu.part ?? "") ?? .chest)
+        _memo = State(initialValue: menu.memo ?? "")
     }
     
     var body: some View {
@@ -121,7 +118,7 @@ struct RecordsListView: View {
         .sheet(isPresented: $showingModal) {
             let weight: Float = records.first?.weight ?? 0
             let reps: Int64 = records.first?.reps ?? 0
-            AddRecordView(menuID: menu.first?.id ?? "", previousRecord: (weight, reps))
+            AddRecordView(menuID: menu.id ?? "", previousRecord: (weight, reps))
                 .environment(\.managedObjectContext, viewContext)
         }
         .gesture(
@@ -133,9 +130,6 @@ struct RecordsListView: View {
     }
     
     private func addItem() {
-        guard let menu = menu.first else {
-            return
-        }
         menu.title = title
         menu.part = part.rawValue
         menu.memo = memo
@@ -169,7 +163,11 @@ private let itemFormatter: DateFormatter = {
 
 struct RecordsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let menuContent = MenuContent(id: "test", part: .chest, title: "title", memo: "")
-        return RecordsListView(menuContent: menuContent).environment(\.managedObjectContext, PersistenceController.recordsListPreview.container.viewContext)
+        let menu = Menu(context: PersistenceController.recordsListPreview.container.viewContext)
+        menu.id = "test"
+        menu.part = Part.chest.rawValue
+        menu.title = "title"
+        menu.memo = "memo"
+        return RecordsListView(menu: menu)
     }
 }

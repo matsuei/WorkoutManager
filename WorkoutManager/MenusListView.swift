@@ -33,17 +33,18 @@ struct MenusListView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(listItems) { item in
-                    Section(header: Text(item.part.text)) {
-                        ForEach(item.menus) { menu in
+                ForEach(Part.allCases) { part in
+                    Section(header: Text(part.text)) {
+                        let menus = items.filter({ $0.part == part.rawValue})
+                        ForEach(menus) { menu in
                             HStack {
                                 Text(menu.title!)
-                                NavigationLink(destination: RecordsListView(menuContent: MenuContent(id: menu.id!, part: Part(rawValue: menu.part!)!, title: menu.title!, memo: menu.memo ?? ""))) {
+                                NavigationLink(destination: RecordsListView(menu: menu)) {
                                 }
                             }
                         }
                         .onDelete(perform: { indexSet in
-                            deleteItems(offsets: indexSet, section: item.section)
+                            deleteItems(offsets: indexSet, section: part.section)
                         })
                     }
                 }

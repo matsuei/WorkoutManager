@@ -6,7 +6,7 @@
 //
 import Foundation
 
-enum Part: String, CaseIterable {
+enum Part: String, CaseIterable, Identifiable {
     case chest
     case back
     case shoulder
@@ -14,6 +14,29 @@ enum Part: String, CaseIterable {
     case triceps
     case abs
     case leg
+    
+    var id: String {
+        rawValue
+    }
+    
+    var section: Int {
+        switch self {
+        case .chest:
+            return 0
+        case .back:
+            return 1
+        case .shoulder:
+            return 2
+        case .biceps:
+            return 3
+        case .triceps:
+            return 4
+        case .abs:
+            return 5
+        case .leg:
+            return 6
+        }
+    }
     
     var text: String {
         NSLocalizedString(rawValue, comment: rawValue)
