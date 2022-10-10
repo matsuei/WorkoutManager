@@ -33,13 +33,13 @@ struct AnalyticsView: View {
                         }
                     }
                 }
-                ForEach(state.listItems) { item in
-                    Section(header: Text(item.dateString)) {
-                        ForEach(item.menuRecords) { menuRecord in
+                ForEach(state.sectionItems) { item in
+                    Section(header: Text(item.menu)) {
+                        ForEach(item.records) { record in
                             HStack {
-                                Text(menuRecord.menu)
-                                Text("Weight: \(String(menuRecord.record.weight))")
-                                Text("Reps: \(String(menuRecord.record.reps))")
+                                Text(state.dateString(from: record.timestamp!))
+                                Text("Weight: \(String(record.weight))")
+                                Text("Reps: \(String(record.reps))")
                             }
                         }
                     }
