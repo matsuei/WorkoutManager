@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Charts
 
 struct AnalyticsView: View {
     @ObservedObject private var state: AnalyticsViewState = .init()
@@ -33,13 +34,25 @@ struct AnalyticsView: View {
                         }
                     }
                 }
-                ForEach(state.listItems) { item in
-                    Section(header: Text(item.dateString)) {
-                        ForEach(item.menuRecords) { menuRecord in
-                            HStack {
-                                Text(menuRecord.menu)
-                                Text("Weight: \(String(menuRecord.record.weight))")
-                                Text("Reps: \(String(menuRecord.record.reps))")
+                ForEach(state.sectionItems) { item in
+                    Section(header: Text(item.menu)) {
+                        Chart(item.records) { record in
+                            PointMark(
+                                x: .value("Date", record.timestamp!),
+                                y: .value("Reps", record.reps)
+                            )
+                            .annotation(position: .overlay, alignment: .center) {
+                                Text(String(record.weight))
+                                    .font(.system(size: 10))
+                            }
+                            .symbolSize(0)
+                        }
+                        .frame(height: 200)
+                        .chartXAxis {
+                            AxisMarks(values: .stride(by: .day, count: 10)) { date in
+                                AxisGridLine()
+                                AxisTick()
+                                AxisValueLabel(format: .dateTime.day().month())
                             }
                         }
                     }

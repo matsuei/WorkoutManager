@@ -9,16 +9,10 @@ import Foundation
 import CoreData
 
 class AnalyticsViewState: ObservableObject {
-    struct MenuRecord: Identifiable {
+    struct SectionItem: Identifiable {
         var id = UUID()
         var menu: String
-        var record: Record
-    }
-    struct ListItem: Identifiable {
-        var id = UUID()
-        var section: Int
-        var dateString: String
-        var menuRecords: [MenuRecord]
+        var records: [Record]
     }
     
     private let itemFormatter: DateFormatter = {
@@ -31,7 +25,7 @@ class AnalyticsViewState: ObservableObject {
     @Published var startDate = Date()
     @Published var endDate = Date()
     @Published var part: Part = .chest
-    @Published var menuRecords: [MenuRecord] = []
+    @Published var sectionItems: [SectionItem] = []
     
     private let persistenceController: PersistenceController
     
@@ -39,30 +33,8 @@ class AnalyticsViewState: ObservableObject {
         self.persistenceController = persistenceController
     }
     
-    var listItems: [ListItem] {
-        var items = [ListItem]()
-        guard let date = menuRecords.first?.record.timestamp else {
-            return items
-        }
-        var section = 0
-        items.append(ListItem(section: section, dateString: itemFormatter.string(from: date), menuRecords: []))
-        menuRecords.forEach { menuRecord in
-            if let index = items.firstIndex(where: {$0.dateString == itemFormatter.string(from: menuRecord.record.timestamp!)}) {
-                items[index].menuRecords.append(menuRecord)
-            } else {
-                section = section + 1
-                let dateString = itemFormatter.string(from: menuRecord.record.timestamp!)
-                items.append(ListItem(section: section, dateString: dateString, menuRecords: [menuRecord]))
-            }
-        }
-        items.sort { left, right in
-            return left.dateString > right.dateString
-        }
-        return items
-    }
-    
     func search() {
-        menuRecords = []
+        sectionItems = []
         let menuFetchRequest = NSFetchRequest<Menu>(entityName: "Menu")
         let predicate = NSPredicate(format: "part == %@", part.rawValue)
         menuFetchRequest.predicate = predicate
@@ -74,12 +46,14 @@ class AnalyticsViewState: ObservableObject {
                 let menuPredicate = NSPredicate(format: "menuID == %@", menu.id!)
                 fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, menuPredicate])
                 let records = try persistenceController.container.viewContext.fetch(fetchRequest)
-                records.forEach { record in
-                    menuRecords.append(MenuRecord( menu: menu.title!, record: record))
-                }
+                sectionItems.append(SectionItem(menu: menu.title!, records: records))
             }
         } catch {
             print("Fetch error:", error)
         }
+    }
+    
+    func dateString(from date: Date) -> String {
+        return itemFormatter.string(from: date)
     }
 }
