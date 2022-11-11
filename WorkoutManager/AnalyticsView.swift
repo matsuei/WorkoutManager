@@ -38,7 +38,7 @@ struct AnalyticsView: View {
                     Section(header: Text(item.menu)) {
                         Chart(item.records) { record in
                             PointMark(
-                                x: .value("Date", state.dateString(from: record.timestamp!)),
+                                x: .value("Date", record.timestamp!),
                                 y: .value("Reps", record.reps)
                             )
                             .annotation(position: .overlay, alignment: .center) {
@@ -48,7 +48,13 @@ struct AnalyticsView: View {
                             .symbolSize(0)
                         }
                         .frame(height: 200)
-                        .chartXScale(range: .plotDimension(padding: 20))
+                        .chartXAxis {
+                            AxisMarks(values: .stride(by: .day, count: 10)) { date in
+                                AxisGridLine()
+                                AxisTick()
+                                AxisValueLabel(format: .dateTime.day().month())
+                            }
+                        }
                     }
                 }
             }
